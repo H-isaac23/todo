@@ -1,9 +1,8 @@
-import { useState } from "react";
+import React from "react";
 import { AppShell, Navbar, Header } from "@mantine/core";
+import TodoList from "./components/TodoList";
 
 const App = () => {
-  const [count, setCount] = useState(0);
-
   return (
     <AppShell
       padding="md"
@@ -26,7 +25,7 @@ const App = () => {
         },
       })}
     >
-      hi
+      <TodoList />
     </AppShell>
   );
 };
