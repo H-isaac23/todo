@@ -1,8 +1,10 @@
 import express from "express";
 import todoRoute from "./routes/todo";
+import cors from "cors";
 
 const app = express();
 app.use(express.json());
+app.use(cors({ origin: ["http://localhost:3000"] }));
 
 app.get("/", (_, res) => {
   res.send("Hello");
