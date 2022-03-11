@@ -1,16 +1,17 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Card, Text, Badge, Group, Checkbox } from "@mantine/core";
 
 import { TodoItem } from "../../types";
 import { Status } from "../../types";
 import { useTodoContext } from "../context/todoContext";
+import todoServices from "../services/todoServices";
 
 interface TodoItemProp {
   item: TodoItem;
 }
 
 const TodoCard = ({ item }: TodoItemProp) => {
-  const [todoItem, setTodoItem] = useState<TodoItem>(item);
+  const [todoItem, _] = useState<TodoItem>(item);
   const { todos, setTodos } = useTodoContext();
 
   const onChange = (todo: TodoItem) => {
@@ -18,7 +19,8 @@ const TodoCard = ({ item }: TodoItemProp) => {
       ...todo,
       status: todo.status === Status.Done ? Status.Active : Status.Done,
     };
-    setTodoItem(updatedTodo);
+    // setTodoItem(updatedTodo);
+    todoServices.updateTodo(todo.id);
 
     const updatedTodoList = todos.map((currItem) =>
       currItem.id === updatedTodo.id ? updatedTodo : currItem

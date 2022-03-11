@@ -7,6 +7,11 @@ const fetchTodos = async () => {
   return items;
 };
 
+const updateTodo = async (id: string) => {
+  return await axios.put(`${baseUrl}/todo/${id}`);
+};
+
 export default {
   fetchTodos,
+  updateTodo,
 };
