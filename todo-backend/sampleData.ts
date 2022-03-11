@@ -10,7 +10,7 @@ const data: Array<TodoItem> = [
     todo: "Watch 'The Saint's Magic Power is Omnipotent'",
     deadline: "2022-03-24",
     id: sampleIds[0],
-    status: Status.Active,
+    status: Status.Done,
   },
   {
     todo: "Wanikani review",
