@@ -1,12 +1,33 @@
 import { useState, useEffect } from "react";
-import { AppShell, Navbar, Header, Loader } from "@mantine/core";
+import { AppShell, Navbar, Header, Loader, Text } from "@mantine/core";
 import { Routes, Route } from "react-router-dom";
 
 import TodoList from "./components/TodoList";
 import ArchivedList from "./components/ArchivedList";
+import NavItem from "./components/NavItem";
 import { TodoItem } from "../types";
 import todoServices from "./services/todoServices";
 import { TodoProvider } from "./context/todoContext";
+
+interface NavItems {
+  label: string;
+  routeTo: string;
+}
+
+const navItems: NavItems[] = [
+  {
+    label: "Home",
+    routeTo: "/",
+  },
+  {
+    label: "Archived",
+    routeTo: "/archived",
+  },
+  {
+    label: "Add Todo",
+    routeTo: "/addtodo",
+  },
+];
 
 const App = () => {
   const [todos, setTodos] = useState<TodoItem[]>([]);
@@ -23,7 +44,9 @@ const App = () => {
       padding="md"
       navbar={
         <Navbar width={{ base: 300 }} height={500} padding="xs">
-          Todo List
+          {navItems.map((item: NavItems) => (
+            <NavItem label={item.label} routeTo={item.routeTo} />
+          ))}
         </Navbar>
       }
       header={
