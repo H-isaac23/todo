@@ -1,5 +1,5 @@
 import TodoCard from "./TodoCard";
-import { Status, TodoItem } from "../../types";
+import { TodoItem } from "../../types";
 
 interface ListProps {
   todos: TodoItem[];
@@ -10,17 +10,15 @@ export default function ArchivedList({ todos }: ListProps) {
     return null;
   }
 
-  console.log(todos);
+  console.log({ todos });
 
   return (
     <div>
-      {todos
-        .filter((item: TodoItem) => item.status === Status.Done)
-        .map((todo: TodoItem, i: number) => (
-          <div key={i}>
-            <TodoCard item={todo} />
-          </div>
-        ))}
+      {todos.map((todo: TodoItem, i: number) => (
+        <div key={i}>
+          <TodoCard item={todo} />
+        </div>
+      ))}
     </div>
   );
 }

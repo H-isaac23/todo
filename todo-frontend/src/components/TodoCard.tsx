@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Card, Text, Badge, Group, Checkbox } from "@mantine/core";
 
 import { TodoItem } from "../../types";
@@ -11,7 +10,6 @@ interface TodoItemProp {
 }
 
 const TodoCard = ({ item }: TodoItemProp) => {
-  const [todoItem, _] = useState<TodoItem>(item);
   const { todos, setTodos } = useTodoContext();
 
   const onChange = (todo: TodoItem) => {
@@ -19,7 +17,6 @@ const TodoCard = ({ item }: TodoItemProp) => {
       ...todo,
       status: todo.status === Status.Done ? Status.Active : Status.Done,
     };
-    // setTodoItem(updatedTodo);
     todoServices.updateTodo(todo.id);
 
     const updatedTodoList = todos.map((currItem) =>
@@ -34,16 +31,16 @@ const TodoCard = ({ item }: TodoItemProp) => {
         <Group>
           <Checkbox
             radius="xl"
-            onChange={() => onChange(todoItem)}
-            checked={todoItem.status === Status.Active ? false : true}
+            onChange={() => onChange(item)}
+            checked={item.status === Status.Active ? false : true}
           />
           <Group direction="column">
-            <Text weight={500}>{todoItem.todo}</Text>
+            <Text weight={500}>{item.todo}</Text>
             <Badge
               variant="outline"
-              color={todoItem.status === Status.Active ? "teal" : "violet"}
+              color={item.status === Status.Active ? "teal" : "violet"}
             >
-              {todoItem.status}
+              {item.status}
             </Badge>
           </Group>
         </Group>

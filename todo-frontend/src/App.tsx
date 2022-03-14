@@ -1,31 +1,31 @@
 import { useState, useEffect } from "react";
-import { AppShell, Navbar, Header, Loader, Text } from "@mantine/core";
+import { AppShell, Navbar, Header, Loader } from "@mantine/core";
 import { Routes, Route } from "react-router-dom";
+import { Home, Folders } from "tabler-icons-react";
 
 import TodoList from "./components/TodoList";
 import ArchivedList from "./components/ArchivedList";
 import NavItem from "./components/NavItem";
-import { TodoItem } from "../types";
+import { Status, TodoItem } from "../types";
 import todoServices from "./services/todoServices";
 import { TodoProvider } from "./context/todoContext";
 
 interface NavItems {
   label: string;
-  routeTo: string;
+  icon: React.ReactNode;
+  to: string;
 }
 
 const navItems: NavItems[] = [
   {
     label: "Home",
-    routeTo: "/",
+    to: "/",
+    icon: <Home size={16} />,
   },
   {
     label: "Archived",
-    routeTo: "/archived",
-  },
-  {
-    label: "Add Todo",
-    routeTo: "/addtodo",
+    to: "/archived",
+    icon: <Folders size={16} />,
   },
 ];
 
@@ -39,13 +39,23 @@ const App = () => {
     void fetchTodos();
   }, []);
 
+  const archivedTodos = [...todos].filter(
+    (item: TodoItem) => item.status === Status.Done
+  );
+  const activeTodos = [...todos].filter(
+    (item: TodoItem) => item.status === Status.Active
+  );
+
+  console.log(activeTodos);
+  console.log(archivedTodos);
+
   return (
     <AppShell
       padding="md"
       navbar={
         <Navbar width={{ base: 300 }} height={500} padding="xs">
           {navItems.map((item: NavItems) => (
-            <NavItem label={item.label} routeTo={item.routeTo} />
+            <NavItem {...item} key={item.label} />
           ))}
         </Navbar>
       }
@@ -66,8 +76,11 @@ const App = () => {
       {todos.length === 0 && <Loader />}
       <TodoProvider todoState={{ todos, setTodos }}>
         <Routes>
-          <Route path="/archived" element={<ArchivedList todos={todos} />} />
-          <Route path="/" element={<TodoList todos={todos} />} />
+          <Route
+            path="/archived"
+            element={<ArchivedList todos={archivedTodos} />}
+          />
+          <Route path="/" element={<TodoList todos={activeTodos} />} />
         </Routes>
       </TodoProvider>
     </AppShell>
