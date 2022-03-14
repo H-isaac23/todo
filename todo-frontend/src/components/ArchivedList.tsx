@@ -10,8 +10,6 @@ export default function ArchivedList({ todos }: ListProps) {
     return null;
   }
 
-  console.log({ todos });
-
   return (
     <div>
       {todos.map((todo: TodoItem, i: number) => (
