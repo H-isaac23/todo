@@ -1,5 +1,14 @@
 import { useState, useEffect } from "react";
-import { AppShell, Navbar, Header, Loader } from "@mantine/core";
+import {
+  AppShell,
+  Burger,
+  Header,
+  MediaQuery,
+  Navbar,
+  Text,
+  useMantineTheme,
+  Loader,
+} from "@mantine/core";
 import { Routes, Route } from "react-router-dom";
 import { Home, Folders } from "tabler-icons-react";
 
@@ -31,6 +40,9 @@ const navItems: NavItems[] = [
 
 const App = () => {
   const [todos, setTodos] = useState<TodoItem[]>([]);
+  const [opened, setOpened] = useState(false);
+  const theme = useMantineTheme();
+
   useEffect(() => {
     const fetchTodos = async () => {
       const { data: todos } = await todoServices.fetchTodos();
@@ -46,22 +58,38 @@ const App = () => {
     (item: TodoItem) => item.status === Status.Active
   );
 
-  console.log(activeTodos);
-  console.log(archivedTodos);
-
   return (
     <AppShell
       padding="md"
       navbar={
-        <Navbar width={{ base: 300 }} height={500} padding="xs">
+        <Navbar
+          padding="md"
+          hiddenBreakpoint="sm"
+          hidden={!opened}
+          width={{ sm: 200, lg: 300 }}
+        >
           {navItems.map((item: NavItems) => (
             <NavItem {...item} key={item.label} />
           ))}
         </Navbar>
       }
       header={
-        <Header height={60} padding="xs">
-          Test Header
+        <Header height={60} padding="md">
+          <div
+            style={{ display: "flex", alignItems: "center", height: "100%" }}
+          >
+            <MediaQuery largerThan="sm" styles={{ display: "none" }}>
+              <Burger
+                opened={opened}
+                onClick={() => setOpened((o) => !o)}
+                size="sm"
+                color={theme.colors.gray[6]}
+                mr="xl"
+              />
+            </MediaQuery>
+
+            <Text>Application header</Text>
+          </div>
         </Header>
       }
       styles={(theme) => ({
