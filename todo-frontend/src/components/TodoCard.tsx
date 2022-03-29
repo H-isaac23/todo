@@ -27,7 +27,7 @@ const TodoCard = ({ item }: TodoItemProp) => {
 
   return (
     <div style={{ margin: "5px" }}>
-      <Card shadow="sm" padding="lg">
+      <Card shadow="sm" p="lg">
         <Group>
           <Checkbox
             radius="xl"

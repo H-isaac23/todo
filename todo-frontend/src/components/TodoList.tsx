@@ -19,16 +19,16 @@ export default function TodoList({ todos }: ListProps) {
   return (
     <div>
       <TodoModal opened={opened} setOpened={setOpened} />
-      {todos.map((todo: TodoItem, i: number) => (
-        <div key={i}>
-          <TodoCard item={todo} />
-        </div>
-      ))}
       <div style={{ margin: "10px" }}>
         <Button color="teal" onClick={() => setOpened((o) => !o)}>
           Add New Todo
         </Button>
       </div>
+      {todos.map((todo: TodoItem, i: number) => (
+        <div key={i}>
+          <TodoCard item={todo} />
+        </div>
+      ))}
     </div>
   );
 }
