@@ -5,7 +5,7 @@ export enum Status {
 
 export interface TodoEntry {
   todo: string;
-  deadline: string;
+  deadline: Date;
 }
 
 export interface TodoItem extends TodoEntry {
