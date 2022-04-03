@@ -3,12 +3,12 @@ export enum Status {
   Done = "done",
 }
 
-export interface TodoEntry {
+export interface TodoBase {
   todo: string;
   deadline: Date;
 }
 
-export interface TodoItem extends TodoEntry {
+export interface TodoItem extends TodoBase {
   id: string;
   status: Status;
 }

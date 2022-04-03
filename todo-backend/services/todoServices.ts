@@ -1,5 +1,6 @@
 import sampleData from "../sampleData";
-import { Status, TodoItem } from "../types";
+import { Status, TodoItem, TodoBase } from "../types";
+import { v4 as uuid } from "uuid";
 
 let data: TodoItem[] = sampleData;
 
@@ -19,4 +20,11 @@ const updateTodoItem = (id: string) => {
   return todoItem;
 };
 
-export default { getTodoItems, updateTodoItem };
+const addTodoItem = (item: TodoBase) => {
+  const newItem: TodoItem = { ...item, status: Status.Active, id: uuid() };
+  data.push(newItem);
+
+  return newItem;
+};
+
+export default { getTodoItems, updateTodoItem, addTodoItem };
