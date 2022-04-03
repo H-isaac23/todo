@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Group, Modal, TextInput, Button } from "@mantine/core";
 import { DatePicker } from "@mantine/dates";
+import { useTodoContext } from "../context/todoContext";
+import todoServices from "../services/todoServices";
 
 interface ModalProps {
   opened: boolean;
@@ -10,14 +12,27 @@ interface ModalProps {
 export default function TodoModal({ opened, setOpened }: ModalProps) {
   const [newTodo, setNewTodo] = useState("");
   const [deadline, setDeadline] = useState<Date | null>(new Date());
+  const { todos, setTodos } = useTodoContext();
 
   const onNewTodoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewTodo(e.target.value);
   };
 
-  const onSubmit = () => {
-    console.log(newTodo);
-    console.log(deadline);
+  const onSubmit = async () => {
+    if (deadline === null) {
+      return;
+    }
+
+    const newItem = {
+      todo: newTodo,
+      deadline: deadline,
+    };
+
+    const { data: newItemWithId } = await todoServices.addTodo(newItem);
+    setTodos([...todos, newItemWithId]);
+
+    setNewTodo("");
+    setOpened(false);
   };
 
   console.log("hi");

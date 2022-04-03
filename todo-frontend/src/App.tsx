@@ -63,7 +63,7 @@ const App = () => {
       padding="md"
       navbar={
         <Navbar
-          padding="md"
+          p="md"
           hiddenBreakpoint="sm"
           hidden={!opened}
           width={{ sm: 200, lg: 300 }}
@@ -74,7 +74,7 @@ const App = () => {
         </Navbar>
       }
       header={
-        <Header height={60} padding="md">
+        <Header height={60} p="md">
           <div
             style={{ display: "flex", alignItems: "center", height: "100%" }}
           >

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { TodoItem } from "../../types";
+import { TodoBase, TodoItem } from "../../types";
 const baseUrl = "http://localhost:3001";
 
 const fetchTodos = async () => {
@@ -11,7 +11,12 @@ const updateTodo = async (id: string) => {
   return await axios.put(`${baseUrl}/todo/${id}`);
 };
 
+const addTodo = async (todoItem: TodoBase) => {
+  return await axios.post(`${baseUrl}/todo`, todoItem);
+};
+
 export default {
   fetchTodos,
   updateTodo,
+  addTodo,
 };
