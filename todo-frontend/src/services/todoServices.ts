@@ -7,8 +7,12 @@ const fetchTodos = async () => {
   return items;
 };
 
-const updateTodo = async (id: string) => {
-  return await axios.put(`${baseUrl}/todo/${id}`);
+const updateTodoStatus = async (id: string) => {
+  return await axios.put(`${baseUrl}/todo/status/${id}`);
+};
+
+const updateTodo = async (newItem: TodoItem) => {
+  return await axios.put(`${baseUrl}/todo/${newItem.id}`, newItem);
 };
 
 const addTodo = async (todoItem: TodoBase) => {
@@ -17,6 +21,7 @@ const addTodo = async (todoItem: TodoBase) => {
 
 export default {
   fetchTodos,
+  updateTodoStatus,
   updateTodo,
   addTodo,
 };

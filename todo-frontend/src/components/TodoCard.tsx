@@ -42,17 +42,31 @@ const TodoCard = ({ item }: TodoItemProp) => {
   const [editMode, setEditMode] = useState(false);
   const [value, setValue] = useState(item.todo);
 
-  const onChange = (todo: TodoItem) => {
+  const onStatusUpdate = (todo: TodoItem) => {
     const updatedTodo = {
       ...todo,
       status: todo.status === Status.Done ? Status.Active : Status.Done,
     };
-    todoServices.updateTodo(todo.id);
+    todoServices.updateTodoStatus(todo.id);
 
     const updatedTodoList = todos.map((currItem) =>
       currItem.id === updatedTodo.id ? updatedTodo : currItem
     );
     setTodos(updatedTodoList);
+  };
+
+  const onTodoEdit = (todoItem: TodoItem) => {
+    const updatedTodo = {
+      ...todoItem,
+      todo: value,
+    };
+    todoServices.updateTodo(updatedTodo);
+
+    const updatedTodoList = todos.map((currItem) =>
+      currItem.id === updatedTodo.id ? updatedTodo : currItem
+    );
+    setTodos(updatedTodoList);
+    setEditMode(false);
   };
 
   return (
@@ -61,7 +75,7 @@ const TodoCard = ({ item }: TodoItemProp) => {
         <Group>
           <Checkbox
             radius="xl"
-            onChange={() => onChange(item)}
+            onChange={() => onStatusUpdate(item)}
             checked={item.status === Status.Active ? false : true}
           />
           <div className={classes.todoDetails}>
@@ -94,7 +108,7 @@ const TodoCard = ({ item }: TodoItemProp) => {
                 <Button
                   variant="subtle"
                   color="gray"
-                  onClick={() => setEditMode(false)}
+                  onClick={() => onTodoEdit(item)}
                 >
                   <Check size={22} strokeWidth={2} color={"grey"} />
                 </Button>
