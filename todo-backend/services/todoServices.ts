@@ -8,7 +8,7 @@ const getTodoItems = (): Array<TodoItem> => {
   return data;
 };
 
-const updateTodoItem = (id: string) => {
+const updateTodoStatus = (id: string) => {
   const todoItem = data.find((item: TodoItem) => item.id === id);
 
   if (todoItem) {
@@ -20,6 +20,10 @@ const updateTodoItem = (id: string) => {
   return todoItem;
 };
 
+const updateTodoList = (item: TodoItem) => {
+  data = data.map((x: TodoItem) => (x.id === item.id ? item : x));
+};
+
 const addTodoItem = (item: TodoBase) => {
   const newItem: TodoItem = { ...item, status: Status.Active, id: uuid() };
   data.push(newItem);
@@ -27,4 +31,4 @@ const addTodoItem = (item: TodoBase) => {
   return newItem;
 };
 
-export default { getTodoItems, updateTodoItem, addTodoItem };
+export default { getTodoItems, updateTodoStatus, addTodoItem, updateTodoList };

@@ -9,6 +9,12 @@ const isString = (param: unknown): param is string => {
   return typeof param === "string" || param instanceof String;
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const isStatus = (param: any): param is Status => {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+  return Object.values(Status).includes(param);
+};
+
 const parseString = (data: unknown): string => {
   if (!data || !isString(data)) {
     throw new Error("Malformatted string data");
@@ -23,6 +29,14 @@ const parseDate = (data: unknown): Date => {
   }
 
   return new Date(data);
+};
+
+const parseStatus = (data: unknown): Status => {
+  if (!data || !isStatus(data)) {
+    throw new Error("Malformatted Status");
+  }
+
+  return data;
 };
 
 const toNewTodoEntry = ({
@@ -40,4 +54,21 @@ any): TodoItem => {
   return newTodoItem;
 };
 
-export default toNewTodoEntry;
+const toTodoItem = ({
+  todo,
+  deadline,
+  id,
+  status,
+}: // eslint-disable-next-line @typescript-eslint/no-explicit-any
+any): TodoItem => {
+  const newTodoItem: TodoItem = {
+    todo: parseString(todo),
+    deadline: parseDate(deadline),
+    id: parseString(id),
+    status: parseStatus(status),
+  };
+
+  return newTodoItem;
+};
+
+export default { toNewTodoEntry, toTodoItem };
