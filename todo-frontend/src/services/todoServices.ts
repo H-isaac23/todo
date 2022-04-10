@@ -19,9 +19,14 @@ const addTodo = async (todoItem: TodoBase) => {
   return await axios.post(`${baseUrl}/todo`, todoItem);
 };
 
+const deleteTodo = (id: string) => {
+  axios.delete(`${baseUrl}/todo/${id}`);
+};
+
 export default {
   fetchTodos,
   updateTodoStatus,
   updateTodo,
   addTodo,
+  deleteTodo,
 };

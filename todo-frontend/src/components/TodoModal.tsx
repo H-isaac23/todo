@@ -35,8 +35,6 @@ export default function TodoModal({ opened, setOpened }: ModalProps) {
     setOpened(false);
   };
 
-  console.log("hi");
-
   return (
     <Modal
       opened={opened}

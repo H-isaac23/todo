@@ -51,6 +51,8 @@ const App = () => {
     void fetchTodos();
   }, []);
 
+  console.log(todos, "inside app");
+
   const archivedTodos = [...todos].filter(
     (item: TodoItem) => item.status === Status.Done
   );

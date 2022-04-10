@@ -10,6 +10,7 @@ import {
 } from "@mantine/core";
 import { Pencil, Check, Trash } from "tabler-icons-react";
 import { useState } from "react";
+import DeleteModal from "./DeleteModal";
 
 import { TodoItem } from "../../types";
 import { Status } from "../../types";
@@ -41,6 +42,7 @@ const TodoCard = ({ item }: TodoItemProp) => {
   const { todos, setTodos } = useTodoContext();
   const [editMode, setEditMode] = useState(false);
   const [value, setValue] = useState(item.todo);
+  const [opened, setOpened] = useState(false);
 
   const onStatusUpdate = (todo: TodoItem) => {
     const updatedTodo = {
@@ -71,6 +73,12 @@ const TodoCard = ({ item }: TodoItemProp) => {
 
   return (
     <div style={{ margin: "5px" }}>
+      <DeleteModal
+        opened={opened}
+        setOpened={setOpened}
+        id={item.id}
+        setEditMode={setEditMode}
+      />
       <Card shadow="sm" p="lg">
         <Group>
           <Checkbox
@@ -107,17 +115,17 @@ const TodoCard = ({ item }: TodoItemProp) => {
               <>
                 <Button
                   variant="subtle"
-                  color="gray"
+                  color="green"
                   onClick={() => onTodoEdit(item)}
                 >
-                  <Check size={22} strokeWidth={2} color={"grey"} />
+                  <Check size={22} strokeWidth={2} color={"green"} />
                 </Button>
                 <Button
                   variant="subtle"
-                  color="gray"
-                  onClick={() => console.log("Todo Deleted.")}
+                  color="red"
+                  onClick={() => setOpened(true)}
                 >
-                  <Trash size={22} strokeWidth={2} color={"grey"} />
+                  <Trash size={22} strokeWidth={2} color={"red"} />
                 </Button>
               </>
             )}
