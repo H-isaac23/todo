@@ -39,4 +39,15 @@ route.post("/", (req, res) => {
   }
 });
 
+route.delete("/:id", (req, res) => {
+  try {
+    const id = req.params.id;
+    todoServices.deleteTodoItem(id);
+    res.status(200);
+  } catch (error: unknown) {
+    console.assert(error);
+    res.status(404);
+  }
+});
+
 export default route;

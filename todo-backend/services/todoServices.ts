@@ -31,4 +31,18 @@ const addTodoItem = (item: TodoBase) => {
   return newItem;
 };
 
-export default { getTodoItems, updateTodoStatus, addTodoItem, updateTodoList };
+const deleteTodoItem = (id: string) => {
+  const item = data.find((todo) => todo.id === id);
+  if (!item) {
+    throw new Error(`Item with id ${id} does not exist`);
+  }
+  data = data.filter((todo) => todo.id !== id);
+};
+
+export default {
+  getTodoItems,
+  updateTodoStatus,
+  addTodoItem,
+  updateTodoList,
+  deleteTodoItem,
+};
